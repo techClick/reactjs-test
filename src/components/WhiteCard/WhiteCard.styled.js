@@ -1,4 +1,8 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const breatheAnimation = keyframes`
+ 0% { opacity: 0 }
+ 100% { opacity: 1 }`;
 
 export const Container = styled.div`
   background-color: white;
@@ -17,6 +21,9 @@ export const Container = styled.div`
     cursor: ${(props) => (props.isPanelLink ? 'pointer' : '')};
     background-color: ${(props) => (props.isPanelLink ? '#91c9e6' : 'white')};
   }
+  animation-name: ${breatheAnimation};
+  animation-duration: 0.45s;
+  animation-iteration-count: 1;
 `;
 
 export const TableDescription = styled.div`

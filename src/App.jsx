@@ -10,7 +10,7 @@ import { sortAlphabetically, getStorageItem } from './utils/Utils';
 class App extends React.Component {
   constructor(props) {
     super(props);
-    // localStorage.clear();
+    localStorage.clear();
     this.state = {
       forecasts: localStorage.getItem('forecasts')
         ? getStorageItem('forecasts') : sortAlphabetically(initialForecast),
