@@ -16,6 +16,10 @@ In the above details page, one can add notes by filling in the input and pressin
 
 ![image info](./src/assets/readme/Capture7.PNG)
 
+The note will be available beneathe the input box.
+
+![image info](./src/assets/readme/Capture7.PNG)
+
 With the buttons seen below, one can edit or delete saved notes. The left button is for editing, the right for deleting.
 
 ![image info](./src/assets/readme/Capture11.PNG)
