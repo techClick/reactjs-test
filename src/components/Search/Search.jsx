@@ -63,7 +63,7 @@ const Search = function Search({ setForecasts, setShowSearch }) {
       );
       if (savedCityAllForecast) {
         addNewStorageItem('forecasts', savedCityAllForecast, true, false);
-        onSuccess(savedCityAllForecast.location.name);
+        onSuccess(savedCityAllForecast.location.name, true);
         // eslint-disable-next-line no-alert
         alert('This city forecast was DELETED by you.'
           + '\nIt has now been restored.');
