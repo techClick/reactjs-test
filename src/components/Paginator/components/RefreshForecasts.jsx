@@ -14,7 +14,7 @@ const RefreshForecasts = function RefreshForecasts({
     const onComplete = function onComplete() {
       if (getStorageItem('allForecasts').length === allForecasts.length) {
         // eslint-disable-next-line array-callback-return
-        forecasts = allForecasts.filter((allForecast) => (
+        forecasts = getStorageItem('allForecasts').filter((allForecast) => (
           forecasts.find(
             (forecast) => forecast.location.name === allForecast.location.name,
           )));
