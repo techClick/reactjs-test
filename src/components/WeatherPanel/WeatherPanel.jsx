@@ -58,7 +58,13 @@ class WeatherPanel extends React.Component {
         setSelectedForecast(thisForecast);
         return;
       }
-      const onWeatherAPISuccess = function onSuccess() {
+      if (!city) {
+        // eslint-disable-next-line
+        alert('Could not locate you!');
+        setLoadingForecasts(false);
+        return;
+      }
+      const onWeatherAPISuccess = function onWeatherAPISuccess() {
         setForecasts(getStorageItem('forecasts'));
         setLoadingForecasts(false);
         thisForecast = getStorageItem('forecasts').find((forecast) => (
@@ -66,10 +72,10 @@ class WeatherPanel extends React.Component {
         ));
         setSelectedForecast(thisForecast);
       };
-      const onWeatherAPIFail = function onFail() {
+      const onWeatherAPIFail = function onWeatherAPIFail() {
         // eslint-disable-next-line
-        alert(`Your city: ${city}\n
-          Was not found on weatherstack.com`);
+        alert(`Your city: ${city}\nWas not found on weatherstack.com`);
+        setLoadingForecasts(false);
       };
       getNewCityForecast(city, onWeatherAPISuccess, onWeatherAPIFail, false);
     };

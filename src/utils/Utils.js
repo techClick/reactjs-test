@@ -164,13 +164,15 @@ export const getNewCityForecast = function getNewCityForecast(
 };
 
 export const getGeoLocation = function getGeoLocation(stateFunction) {
-  const url = 'http://ip-api.com/json';
+  const apiKey = 'c1fd1ab3cb006384c8ba08b4672ef90c6a4024a7256d4d492bc4c431';
+  const url = `https://api.ipdata.co?api-key=${apiKey}`;
   return fetch(url)
     .then((res) => {
       console.log('RES', res);
       return res.json();
     })
     .then((data) => {
+      console.log('Data', data);
       stateFunction(data.city);
     }).catch((e) => {
       console.log('ERROR', e);
