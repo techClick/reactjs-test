@@ -119,15 +119,17 @@ class Notes extends React.Component {
           { isEditing == undefined
             && (
             <>
-              <S.TextArea
-                data-testid="notesInput"
-                value={thisNote}
-                onChange={(e) => setThisNote(e.target.value)}
-                placeholder={`Enter new ${city} note`}
-              />
-              <S.AddNote onClick={() => saveThisNote()} data-testid="addNote">
-                Add Note
-              </S.AddNote>
+              <S.AddNoteArea>
+                <S.TextArea
+                  data-testid="notesInput"
+                  value={thisNote}
+                  onChange={(e) => setThisNote(e.target.value)}
+                  placeholder={`Enter new ${city} note`}
+                />
+                <S.AddNote onClick={() => saveThisNote()} data-testid="addNote">
+                  Add Note
+                </S.AddNote>
+              </S.AddNoteArea>
               { notes && notes.length > 0
                 && (
                   <S.NotesPanel>

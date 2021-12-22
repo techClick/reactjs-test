@@ -21,9 +21,14 @@ export const RelativeContainer = styled.div`
   text-align: left;
 `;
 
+export const AddNoteArea = styled.div`
+  height: 25%;
+  display: flex;
+`;
+
 export const TextArea = styled.textarea`
   width: 60%;
-  height: 25%;
+  height: 93.5%;
   padding-left: 6px;
 `;
 
@@ -37,10 +42,7 @@ export const AddNote = styled.button`
   color: white;
   font-weight: bold;
   font-size: 13px;
-  position: absolute;
-  left: calc(60% + 22px);
-  top: 0px;
-  margin-bottom: 20px;
+  margin-left: 8px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
