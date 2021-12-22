@@ -58,7 +58,7 @@ export const AddNote = styled.button`
 export const NotesPanel = styled.div`
   overflow: hidden;
   overflow-y: auto;
-  height: calc(71% - 10px);
+  height: calc(73.5% - 10px);
   width: 99.2%;
   margin-top: 10px;
   border: .75px solid #c9c9c9;
