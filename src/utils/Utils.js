@@ -197,3 +197,22 @@ export const getSelectedItemFromList = function getSelectedItemFromList(
   }
   return selectedForecast;
 };
+
+export const getForecastPage = function getForecastPage(city, forecasts, noOfPages) {
+  let isFound;
+  for (let i = 1; i <= noOfPages; i += 1) {
+    const paginatedForecasts = getPaginatedData(forecasts, i);
+    // eslint-disable-next-line
+    const found = paginatedForecasts.find((forecast) => {
+      const isMatch = forecast.location.name === city;
+      if (isMatch) {
+        isFound = i;
+      }
+      return isMatch;
+    });
+    if (isFound) {
+      break;
+    }
+  }
+  return isFound;
+};

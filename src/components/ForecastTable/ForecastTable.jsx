@@ -7,6 +7,7 @@ import {
   getSelectedItemFromList,
   addNewStorageItem,
   getStorageItem,
+  getForecastPage,
 } from '../../utils/Utils';
 import Paginator from '../Paginator/Paginator';
 import deleteIcon from '../../assets/bin.png';
@@ -22,7 +23,15 @@ const ForecastTable = function ForecastTable({
   setShowSearch,
   setLoadingForecasts,
 }) {
-  const [thisPage, setThisPage] = useState(1);
+  const [thisPage, setThisPageMain] = useState(1);
+  const [justAddedCity, setJustAddedCity] = useState(null);
+  function setThisPage(page) {
+    if (justAddedCity) {
+      setJustAddedCity(null);
+    }
+    setThisPageMain(page);
+  }
+
   // Below variables are used to paginate forecasts
   const paginatedForecasts = getPaginatedData(forecasts, thisPage);
   const totalForecasts = forecasts.length;
@@ -47,6 +56,17 @@ const ForecastTable = function ForecastTable({
     return isFavourite;
   }
   const [isFavourite, setIsFavourite] = useState([getIsFavouriteArray()]);
+
+  useEffect(() => {
+    const justAddedCityInStorage = localStorage.getItem('justAdded');
+    if (justAddedCityInStorage) {
+      const pageOfCity = getForecastPage(justAddedCityInStorage, forecasts, noOfPages);
+      console.log('here', pageOfCity);
+      setThisPage(pageOfCity);
+      setJustAddedCity(justAddedCityInStorage);
+      localStorage.removeItem('justAdded');
+    }
+  }, [forecasts]);
 
   useEffect(() => {
     if (!localStorage.getItem('forecasts')) {
@@ -125,7 +145,7 @@ const ForecastTable = function ForecastTable({
         </thead>
         <tbody>
           { paginatedForecasts.map((forecast, i) => (
-            <S.TR>
+            <S.TR isJustAdded={forecast.location.name === justAddedCity}>
               <S.TD>
                 <S.CityLink
                   onClick={() => showDetails(i)}

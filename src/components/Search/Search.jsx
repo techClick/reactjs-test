@@ -8,14 +8,14 @@ const Search = function Search({ setForecasts, setShowSearch }) {
   const [searchText, setSearchText] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const onSuccess = function onSuccess(cityName, isNoAlert) {
+  const onSuccess = function onSuccess(city, isNoAlert) {
     setIsLoading(false);
-    localStorage.setItem('justAdded', cityName);
+    localStorage.setItem('justAdded', city);
     setForecasts(getStorageItem('forecasts'));
     setShowSearch(false);
     if (!isNoAlert) {
       // eslint-disable-next-line no-alert
-      alert(`${cityName} added to 'all Cities' Table.`);
+      alert(`${city} added to 'all Cities' Table.`);
     }
   };
 

@@ -1,8 +1,9 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import deleteImage from '../../assets/bin2.png';
 
-export const Container = styled.div`
-`;
+const animation = keyframes`
+  from {background-color: #cadce3;}
+  to {background-color: white;}`;
 
 export const Table = styled.table`
   width:100%;
@@ -33,6 +34,9 @@ export const TH = styled.th`
 
 export const TR = styled.tr`
   border-top: .75px solid #f2f2f2;
+  animation-name: ${(props) => (props.isJustAdded ? animation : 'none')};
+  animation-duration: 0.65s;
+  animation-iteration-count: 3;
 `;
 
 export const TD = styled.td`
