@@ -1,10 +1,10 @@
 # Instrictions
 
-The first thing that happens on the site is a prompt to access location. Click 'yes' to view the weather details of your city. Otherwise, click cancel to continue. This prompt comes up only once no matter your choice. 
+The first thing that happens on the site is a prompt to access your location. Click 'yes' to view the weather details of your city. Otherwise, click 'cancel' to continue. This prompt comes up only once no matter your choice. 
 
 ![image info](./src/assets/readme/Capture1.png)
 
-The next is the screen where the weather forecast for the 15 largest cities is listed in alphabetical order.
+The next is the screen where the weather forecast for the 15 largest cities is listed in alphabetical order. This is the table that will be populated with the cities you search for.
 
 ![image info](./src/assets/readme/Capture2.PNG)
 

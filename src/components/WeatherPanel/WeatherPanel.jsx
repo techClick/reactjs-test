@@ -89,7 +89,7 @@ class WeatherPanel extends React.Component {
           && (
             <WhiteCard width="50%" isSearch>
               <S.Loading>
-                Loading forecasts.
+                Loading current forecasts.
                 {/* eslint-disable-next-line react/jsx-indent */}
                 <br />
                 <small>This can take up to 2 minutes.</small>
