@@ -56,7 +56,7 @@ const FavouriteTable = function FavouriteTable({
       height="440px"
       goBack={() => setShowSearch(true)}
       allCities
-      tableDescription="ALL CITIES"
+      tableDescription="FAVORITES"
       favourites
     >
       <S.Table data-testid="favouritesTable">
