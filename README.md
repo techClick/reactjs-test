@@ -24,4 +24,26 @@ The delete button will remove the note instantly, while the edit button will bri
 
 ![image info](./src/assets/readme/Capture12.PNG)
 
+In the list of all Cities seen in image 2. The buttons below will add Favourites and delete forecast entries. The left button will add favourites, the rigth will delte forecasts.
+
+![image info](./src/assets/readme/Capture5.PNG)
+
+The favourites section can be viewed by pressing this button below.
+
+![image info](./src/assets/readme/Capture3.png)
+
+The favourite forecasts will then come up, seen below. Here you can also view the details of the city by clicking the city name.
+
+![image info](./src/assets/readme/Capture4.PNG)
+
+In the favourites section and the 'all cities' section, you can start a new search by clicking the link seen below.
+
+![image info](./src/assets/readme/Capture9.PNG)
+
+This will bring you to the search screen below. Fill in the input with a city name then press the 'search' button seen below. This will add the city to the 'all cities' list in image 2.
+
+![image info](./src/assets/readme/Capture10.PNG)
+
+
+
 
