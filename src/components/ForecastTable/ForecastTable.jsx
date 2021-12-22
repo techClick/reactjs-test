@@ -72,7 +72,7 @@ const ForecastTable = function ForecastTable({
       localStorage.setItem('forecasts', JSON.stringify(forecasts));
       localStorage.setItem('allForecasts', JSON.stringify(forecasts));
       localStorage.setItem('favourites', '[]');
-      localStorage.setItem('API-usage', '50000');
+      localStorage.setItem('API-usage', '250000');
     }
   }, []);
 
