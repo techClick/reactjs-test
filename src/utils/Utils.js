@@ -55,10 +55,8 @@ export const sortAlphabetically = function sortAlphabetically(forecast) {
 export const getStorageItem = function getStorageItem(type) {
   const savedData = localStorage.getItem(type);
   if (savedData) {
-    // console.log('ALL', type, JSON.parse(savedData));
     return JSON.parse(savedData);
   }
-  // console.log('ALL', type, []);
   return [];
 };
 
@@ -78,7 +76,6 @@ export const addNewStorageItem = function addNewStorageItem(
   }
   let savedData = getStorageItem(type);
   savedData = [...savedData, newData];
-  // console.log('SAVED', type, newData, savedData);
   savedData = sortAlphabetically(savedData);
   savedData = JSON.stringify(savedData);
   localStorage.setItem(type, savedData);
@@ -108,7 +105,6 @@ export const saveNoteInStorage = function saveNoteInStorage(city, newNote, isDel
     savedNotes[index].notes = [...savedNotes[index].notes, newNote];
   }
   savedNotes = JSON.stringify(savedNotes);
-  console.log('SAVED NOTES', savedNotes);
   localStorage.setItem('notes', savedNotes);
 };
 

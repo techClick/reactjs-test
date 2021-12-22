@@ -61,7 +61,6 @@ const ForecastTable = function ForecastTable({
     const justAddedCityInStorage = localStorage.getItem('justAdded');
     if (justAddedCityInStorage) {
       const pageOfCity = getForecastPage(justAddedCityInStorage, forecasts, noOfPages);
-      console.log('here', pageOfCity);
       setThisPage(pageOfCity);
       setJustAddedCity(justAddedCityInStorage);
       localStorage.removeItem('justAdded');

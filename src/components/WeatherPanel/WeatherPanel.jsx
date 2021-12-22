@@ -84,7 +84,6 @@ class WeatherPanel extends React.Component {
       // eslint-disable-next-line
       if (confirm('Allow this site access your current location?')) {
         setLoadingForecasts(true);
-        console.log('seen');
         getGeoLocation(showUsersCityDetails);
       }
     }
