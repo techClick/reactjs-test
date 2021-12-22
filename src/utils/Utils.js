@@ -135,7 +135,7 @@ export const getNewCityForecast = function getNewCityForecast(
   onFail,
   saveOnlyBackup,
 ) {
-  const x = `http://api.weatherstack.com/current?access_key=523f4290beb016066e439b51f68fb24c&query=${city}`;
+  const x = `https://api.weatherstack.com/current?access_key=523f4290beb016066e439b51f68fb24c&query=${city}`;
   // const y = city;
   const url = x;
   fetch(url)
