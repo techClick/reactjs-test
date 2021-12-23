@@ -65,7 +65,7 @@ const ForecastTable = function ForecastTable({
       setJustAddedCity(justAddedCityInStorage);
       localStorage.removeItem('justAdded');
     }
-  }, [forecasts]);
+  });
 
   useEffect(() => {
     if (!localStorage.getItem('forecasts')) {
