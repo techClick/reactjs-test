@@ -8,7 +8,7 @@ import Notes from './components/Notes';
 
 const DetailsTable = function DetailsTable({
   selectedForecast,
-  setSelectedForecast,
+  exitFromDetails,
 }) {
   const [thisPage, setThisPage] = useState(1);
   const details = [];
@@ -29,7 +29,7 @@ const DetailsTable = function DetailsTable({
       width="70%"
       height="440px"
       exitText="Back to forecasts"
-      goBack={() => setSelectedForecast(null)}
+      goBack={() => exitFromDetails()}
       favourites
       tableDescription={`
         ${selectedForecast.location.name.toUpperCase()} - Full details`}

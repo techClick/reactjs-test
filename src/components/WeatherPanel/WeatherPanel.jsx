@@ -1,9 +1,17 @@
+/* eslint-disable react/jsx-no-bind */
 import React from 'react';
 import * as S from './WeatherPanel.styled';
 import ForecastTable from '../ForecastTable/ForecastTable';
 import WhiteCard from '../WhiteCard/WhiteCard';
 import FavouritesTable from '../FavouritesTable/FavouritesTable';
-import { getStorageItem, getGeoLocation, getNewCityForecast } from '../../utils/Utils';
+import DetailsTable from '../DetailsTable/DetailsTable';
+import {
+  getStorageItem,
+  getGeoLocation,
+  getNewCityForecast,
+  initializeStorage,
+  sortAlphabetically,
+} from '../../utils/Utils';
 // eslint-disable-next-line import/named
 
 class WeatherPanel extends React.Component {
@@ -11,12 +19,17 @@ class WeatherPanel extends React.Component {
     super(props);
     this.state = {
       panelShown: 'all cities',
-      loadingForecasts: false,
+      loadingForecasts: !localStorage.getItem('usersLocation'),
+      selectedForecast: null,
+      isInitialLoad: false,
       favourites: getStorageItem('favourites'),
     };
     this.setPanelShown = this.setPanelShown.bind(this);
     this.setFavourites = this.setFavourites.bind(this);
+    this.setSelectedForecast = this.setSelectedForecast.bind(this);
     this.setLoadingForecasts = this.setLoadingForecasts.bind(this);
+    this.showUsersCityDetails = this.showUsersCityDetails.bind(this);
+    this.exitFromDetails = this.exitFromDetails.bind(this);
   }
 
   setPanelShown(panelShown) {
@@ -27,70 +40,109 @@ class WeatherPanel extends React.Component {
     this.setState({ favourites });
   }
 
+  setSelectedForecast(selectedForecast) {
+    this.setState({ selectedForecast });
+  }
+
   setLoadingForecasts(loadingForecasts) {
     this.setState({ loadingForecasts });
+  }
+
+  exitFromDetails() {
+    const { isInitialLoad } = this.state;
+    if (isInitialLoad) {
+      const { forecasts, setForecasts } = this.props;
+      const { setLoadingForecasts } = this;
+      this.setState({ isInitialLoad: false });
+      initializeStorage(forecasts, setForecasts, setLoadingForecasts);
+    }
+    const { setSelectedForecast } = this;
+    setSelectedForecast(null);
+  }
+
+  showUsersCityDetails(city) {
+    const { forecasts, setForecasts } = this.props;
+    const { setLoadingForecasts, setSelectedForecast } = this;
+    const setState = this.setState.bind(this);
+
+    if (!city) {
+      // eslint-disable-next-line
+      alert('Could not locate you!');
+      setLoadingForecasts(false);
+      return;
+    }
+
+    let thisForecast = forecasts.find((forecast) => (
+      forecast.location.name === city
+    ));
+    if (thisForecast) {
+      // Forecast of your city exists on your records
+      setLoadingForecasts(false);
+      setSelectedForecast(thisForecast);
+      return;
+    }
+    const onWeatherAPISuccess = function onWeatherAPISuccess() {
+      let forecastsTemp = getStorageItem('forecasts');
+      forecastsTemp = [...forecastsTemp, ...forecasts];
+      forecastsTemp = sortAlphabetically(forecastsTemp);
+      localStorage.setItem('forecasts', JSON.stringify(forecastsTemp));
+      localStorage.setItem('allForecasts', JSON.stringify(forecastsTemp));
+      setForecasts(getStorageItem('forecasts'));
+      setLoadingForecasts(false);
+      thisForecast = getStorageItem('forecasts').find((forecast) => (
+        forecast.location.name === city
+      ));
+      localStorage.setItem('justAdded', city);
+      setSelectedForecast(thisForecast);
+      setState({ isInitialLoad: true });
+    };
+    const onWeatherAPIFail = function onWeatherAPIFail() {
+      // eslint-disable-next-line
+      alert(`Your city: ${city}\nWas not found on weatherstack.com`);
+      setLoadingForecasts(false);
+    };
+    getNewCityForecast(city, onWeatherAPISuccess, onWeatherAPIFail, false);
   }
 
   render() {
     const {
       panelShown,
       favourites,
+      selectedForecast,
       loadingForecasts,
     } = this.state;
-    const {
-      setSelectedForecast,
-      forecasts,
-      setForecasts,
-      setShowSearch,
-    } = this.props;
+    const { forecasts, setForecasts, setShowSearch } = this.props;
     const {
       setPanelShown,
       setFavourites,
       setLoadingForecasts,
+      setSelectedForecast,
+      showUsersCityDetails,
+      exitFromDetails,
     } = this;
 
-    const showUsersCityDetails = function showUsersCityDetails(city) {
-      let thisForecast = forecasts.find((forecast) => (
-        forecast.location.name === city
-      ));
-      if (thisForecast) {
-        setLoadingForecasts(false);
-        setSelectedForecast(thisForecast);
-        return;
-      }
-      if (!city) {
-        // eslint-disable-next-line
-        alert('Could not locate you!');
-        setLoadingForecasts(false);
-        return;
-      }
-      const onWeatherAPISuccess = function onWeatherAPISuccess() {
-        setForecasts(getStorageItem('forecasts'));
-        setLoadingForecasts(false);
-        thisForecast = getStorageItem('forecasts').find((forecast) => (
-          forecast.location.name === city
-        ));
-        setSelectedForecast(thisForecast);
-      };
-      const onWeatherAPIFail = function onWeatherAPIFail() {
-        // eslint-disable-next-line
-        alert(`Your city: ${city}\nWas not found on weatherstack.com`);
-        setLoadingForecasts(false);
-      };
-      getNewCityForecast(city, onWeatherAPISuccess, onWeatherAPIFail, false);
-    };
     if (!localStorage.getItem('usersLocation')) {
       localStorage.setItem('usersLocation', 'stored');
+      setLoadingForecasts(true);
       // eslint-disable-next-line
       if (confirm('Allow this site access your current location?')) {
-        setLoadingForecasts(true);
         getGeoLocation(showUsersCityDetails);
+      } else {
+        setLoadingForecasts(false);
       }
     }
 
+    console.log(loadingForecasts);
     return (
       <S.Container>
-        { loadingForecasts
+        { !loadingForecasts && selectedForecast
+          && (
+            <DetailsTable
+              selectedForecast={selectedForecast}
+              exitFromDetails={exitFromDetails}
+            />
+          )}
+        { !selectedForecast && loadingForecasts
           && (
             <WhiteCard width="50%" isSearch>
               <S.Loading>
@@ -101,7 +153,7 @@ class WeatherPanel extends React.Component {
               </S.Loading>
             </WhiteCard>
           )}
-        { (!loadingForecasts && panelShown === 'all cities')
+        { (!selectedForecast && !loadingForecasts && panelShown === 'all cities')
           && (
             <>
               <WhiteCard width="40%" panelLink="favourites" setPanelShown={setPanelShown}>
@@ -118,7 +170,7 @@ class WeatherPanel extends React.Component {
               />
             </>
           )}
-        { (!loadingForecasts && panelShown === 'favourites')
+        { (!selectedForecast && !loadingForecasts && panelShown === 'favourites')
           && (
             <>
               <FavouritesTable

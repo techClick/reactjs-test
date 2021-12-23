@@ -8,6 +8,7 @@ import {
   addNewStorageItem,
   getStorageItem,
   getForecastPage,
+  initializeStorage,
 } from '../../utils/Utils';
 import Paginator from '../Paginator/Paginator';
 import deleteIcon from '../../assets/bin.png';
@@ -31,7 +32,6 @@ const ForecastTable = function ForecastTable({
     }
     setThisPageMain(page);
   }
-
   // Below variables are used to paginate forecasts
   const paginatedForecasts = getPaginatedData(forecasts, thisPage);
   const totalForecasts = forecasts.length;
@@ -69,10 +69,8 @@ const ForecastTable = function ForecastTable({
 
   useEffect(() => {
     if (!localStorage.getItem('forecasts')) {
-      localStorage.setItem('forecasts', JSON.stringify(forecasts));
-      localStorage.setItem('allForecasts', JSON.stringify(forecasts));
-      localStorage.setItem('favourites', '[]');
-      localStorage.setItem('API-usage', '250000');
+      // eslint-disable-next-line
+      initializeStorage(forecasts, setForecasts, setLoadingForecasts);
     }
   }, []);
 

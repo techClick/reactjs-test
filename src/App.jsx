@@ -1,7 +1,6 @@
 import React from 'react';
 import Container from './styled';
 import WeatherPanel from './components/WeatherPanel/WeatherPanel';
-import DetailsTable from './components/DetailsTable/DetailsTable';
 import Search from './components/Search/Search';
 import initialForecast from './utils/Forecasts';
 import { sortAlphabetically, getStorageItem } from './utils/Utils';
@@ -14,11 +13,9 @@ class App extends React.Component {
     this.state = {
       forecasts: localStorage.getItem('forecasts')
         ? getStorageItem('forecasts') : sortAlphabetically(initialForecast),
-      selectedForecast: null,
       showSearch: false,
     };
     this.setForecasts = this.setForecasts.bind(this);
-    this.setSelectedForecast = this.setSelectedForecast.bind(this);
     this.setShowSearch = this.setShowSearch.bind(this);
   }
 
@@ -26,34 +23,20 @@ class App extends React.Component {
     this.setState({ forecasts });
   }
 
-  setSelectedForecast(selectedForecast) {
-    this.setState({ selectedForecast });
-  }
-
   setShowSearch(showSearch) {
     this.setState({ showSearch });
   }
 
   render() {
-    const { selectedForecast, showSearch, forecasts } = this.state;
-    const { setSelectedForecast, setShowSearch, setForecasts } = this;
-    const showDetailsTable = !showSearch && selectedForecast;
-    const showWeatherPanel = !showSearch && !selectedForecast;
+    const { showSearch, forecasts } = this.state;
+    const { setShowSearch, setForecasts } = this;
     return (
       <Container>
-        { showDetailsTable
-          && (
-            <DetailsTable
-              selectedForecast={selectedForecast}
-              setSelectedForecast={setSelectedForecast}
-            />
-          )}
-        { showWeatherPanel
+        { !showSearch
           && (
             <WeatherPanel
               forecasts={forecasts}
               setForecasts={setForecasts}
-              setSelectedForecast={setSelectedForecast}
               setShowSearch={setShowSearch}
             />
           )}

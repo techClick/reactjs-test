@@ -60,11 +60,18 @@ export const getStorageItem = function getStorageItem(type) {
   return [];
 };
 
+export const addNewTempStorageItem = function addNewTempStorageItem(newData) {
+  let savedData = getStorageItem('tempAllForecasts');
+  savedData = [...savedData, newData];
+  savedData = sortAlphabetically(savedData);
+  savedData = JSON.stringify(savedData);
+  localStorage.setItem('tempAllForecasts', savedData);
+};
+
 export const addNewStorageItem = function addNewStorageItem(
   type,
   newData,
   backupExists,
-  saveOnlyBackup,
 ) {
   if (type === 'forecasts' && !backupExists) {
     let savedAllForecasts = getStorageItem('allForecasts');
@@ -72,7 +79,6 @@ export const addNewStorageItem = function addNewStorageItem(
     savedAllForecasts = sortAlphabetically(savedAllForecasts);
     savedAllForecasts = JSON.stringify(savedAllForecasts);
     localStorage.setItem('allForecasts', savedAllForecasts);
-    if (saveOnlyBackup) return;
   }
   let savedData = getStorageItem(type);
   savedData = [...savedData, newData];
@@ -152,9 +158,14 @@ export const getNewCityForecast = function getNewCityForecast(
       if (APIUsage <= 0) {
         localStorage.setItem('API-usage', '5');
       }
-      addNewStorageItem('forecasts', data, false, saveOnlyBackup);
+      if (saveOnlyBackup) {
+        addNewTempStorageItem(data);
+      } else {
+        addNewStorageItem('forecasts', data, false);
+      }
       onSuccess(data.location.name);
-    }).catch(() => {
+    }).catch((e) => {
+      console.log('ERROR', e);
       onFail();
     });
 };
@@ -211,4 +222,41 @@ export const getForecastPage = function getForecastPage(city, forecasts, noOfPag
     }
   }
   return isFound;
+};
+
+export const loadAllForecasts = function loadAllForecasts(setForecasts, setLoadingForecasts) {
+  setLoadingForecasts(true);
+  const allForecasts = getStorageItem('allForecasts');
+  let forecasts = getStorageItem('forecasts');
+  const onComplete = function onComplete() {
+    const tempAllForecasts = getStorageItem('tempAllForecasts');
+    if (tempAllForecasts.length === allForecasts.length) {
+      // eslint-disable-next-line array-callback-return
+      forecasts = tempAllForecasts.filter((allForecast) => (
+        forecasts.find(
+          (forecast) => forecast.location.name === allForecast.location.name,
+        )));
+      localStorage.setItem('allForecasts', JSON.stringify(tempAllForecasts));
+      localStorage.setItem('forecasts', JSON.stringify(forecasts));
+      localStorage.removeItem('tempAllForecasts');
+      setForecasts(forecasts);
+      setLoadingForecasts(false);
+    }
+  };
+  // eslint-disable-next-line array-callback-return
+  allForecasts.map((forecast) => {
+    getNewCityForecast(forecast.location.name, onComplete, onComplete, true);
+  });
+};
+
+export const initializeStorage = function initializeStorage(
+  forecasts,
+  setForecasts,
+  setLoadingForecasts,
+) {
+  localStorage.setItem('forecasts', JSON.stringify(forecasts));
+  localStorage.setItem('allForecasts', JSON.stringify(forecasts));
+  localStorage.setItem('favourites', '[]');
+  localStorage.setItem('API-usage', '250000');
+  loadAllForecasts(setForecasts, setLoadingForecasts);
 };
