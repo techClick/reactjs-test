@@ -88,15 +88,15 @@ class WeatherPanel extends React.Component {
       forecastsTemp = sortAlphabetically(forecastsTemp);
       localStorage.setItem('forecasts', JSON.stringify(forecastsTemp));
       localStorage.setItem('allForecasts', JSON.stringify(forecastsTemp));
-      setForecasts(getStorageItem('forecasts'));
-      setLoadingForecasts(false);
-      thisForecast = getStorageItem('forecasts').find((forecast) => (
-        forecast.location.name === city
-      ));
       const addThisCity = () => localStorage.setItem('justAddedCity', city);
       setTimeout(addThisCity, 800);
+      thisForecast = forecastsTemp.find((forecast) => (
+        forecast.location.name === city
+      ));
       setSelectedForecast(thisForecast);
       setState({ isInitialLoad: true });
+      setLoadingForecasts(false);
+      setForecasts(forecastsTemp);
     };
     const onWeatherAPIFail = function onWeatherAPIFail() {
       // eslint-disable-next-line
