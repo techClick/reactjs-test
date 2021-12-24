@@ -49,13 +49,14 @@ class WeatherPanel extends React.Component {
   }
 
   exitFromDetails() {
-    const { isInitialLoad } = this.state;
+    const { isInitialLoad, selectedForecast } = this.state;
     if (isInitialLoad) {
       const { forecasts, setForecasts } = this.props;
       const { setLoadingForecasts } = this;
       this.setState({ isInitialLoad: false });
       initializeStorage(forecasts, setForecasts, setLoadingForecasts);
     }
+    localStorage.setItem('justAddedCity-noBlink', selectedForecast.location.name);
     const { setSelectedForecast } = this;
     setSelectedForecast(null);
   }
@@ -92,7 +93,8 @@ class WeatherPanel extends React.Component {
       thisForecast = getStorageItem('forecasts').find((forecast) => (
         forecast.location.name === city
       ));
-      localStorage.setItem('justAdded', city);
+      const addThisCity = () => localStorage.setItem('justAddedCity', city);
+      setTimeout(addThisCity, 800);
       setSelectedForecast(thisForecast);
       setState({ isInitialLoad: true });
     };
@@ -123,7 +125,6 @@ class WeatherPanel extends React.Component {
 
     if (!localStorage.getItem('usersLocation')) {
       localStorage.setItem('usersLocation', 'stored');
-      setLoadingForecasts(true);
       // eslint-disable-next-line
       if (confirm('Allow this site access your current location?')) {
         getGeoLocation(showUsersCityDetails);

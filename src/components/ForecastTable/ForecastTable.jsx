@@ -39,9 +39,6 @@ const ForecastTable = function ForecastTable({
   const noOfPages1 = (totalForecasts % forecastsPerPage) === 0
     ? (totalForecasts / forecastsPerPage) : (Math.floor(totalForecasts / forecastsPerPage) + 1);
   const noOfPages = (totalForecasts / forecastsPerPage) < 1 ? 1 : noOfPages1;
-  if (thisPage > 1 && thisPage > noOfPages) {
-    setThisPage(noOfPages);
-  }
 
   function getIsFavouriteArray() {
     const isFavourite = paginatedForecasts.map((forecast) => {
@@ -56,35 +53,6 @@ const ForecastTable = function ForecastTable({
     return isFavourite;
   }
   const [isFavourite, setIsFavourite] = useState([getIsFavouriteArray()]);
-
-  useEffect(() => {
-    const justAddedCityInStorage = localStorage.getItem('justAdded');
-    if (justAddedCityInStorage) {
-      const pageOfCity = getForecastPage(justAddedCityInStorage, forecasts, noOfPages);
-      setThisPage(pageOfCity);
-      setJustAddedCity(justAddedCityInStorage);
-      localStorage.removeItem('justAdded');
-    }
-  });
-
-  useEffect(() => {
-    if (!localStorage.getItem('forecasts')) {
-      // eslint-disable-next-line
-      initializeStorage(forecasts, setForecasts, setLoadingForecasts);
-    }
-  }, []);
-
-  useEffect(() => {
-    setIsFavourite([...getIsFavouriteArray()]);
-  }, [thisPage, forecasts, favourites]);
-
-  function showDetails(index) {
-    const selectedForecast = getSelectedItemFromList(
-      'item',
-      paginatedForecasts[index].location.name,
-    );
-    setSelectedForecast(selectedForecast);
-  }
 
   function deleteEntry(index) {
     const selectedForecastIndex = getSelectedItemFromList(
@@ -125,6 +93,41 @@ const ForecastTable = function ForecastTable({
     addNewStorageItem('favourites', forecasts[selectedForecastIndex]);
     setFavourites([...getStorageItem('favourites')]);
   }
+
+  function showDetails(index) {
+    const selectedForecast = getSelectedItemFromList(
+      'item',
+      paginatedForecasts[index].location.name,
+    );
+    setSelectedForecast(selectedForecast);
+  }
+
+  useEffect(() => {
+    if (!localStorage.getItem('forecasts')) {
+      // eslint-disable-next-line
+      initializeStorage(forecasts, setForecasts, setLoadingForecasts);
+    }
+  }, []);
+
+  useEffect(() => {
+    setIsFavourite([...getIsFavouriteArray()]);
+  }, [thisPage, forecasts, favourites]);
+
+  useEffect(() => {
+    if (thisPage > 1 && thisPage > noOfPages) {
+      setThisPage(noOfPages);
+    }
+    const justAddedCityInStorage = localStorage.getItem('justAddedCity')
+      || localStorage.getItem('justAddedCity-noBlink');
+    if (justAddedCityInStorage) {
+      const pageOfCity = getForecastPage(justAddedCityInStorage, forecasts, noOfPages);
+      setThisPage(pageOfCity);
+      if (localStorage.getItem('justAddedCity')) setJustAddedCity(justAddedCityInStorage);
+      localStorage.removeItem('justAddedCity');
+      localStorage.removeItem('justAddedCity-noBlink');
+    }
+  });
+
   return (
     <WhiteCard
       width="70%"

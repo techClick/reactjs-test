@@ -10,7 +10,7 @@ const Search = function Search({ setForecasts, setShowSearch }) {
 
   const onSuccess = function onSuccess(city, isNoAlert) {
     setIsLoading(false);
-    localStorage.setItem('justAdded', city);
+    localStorage.setItem('justAddedCity', city);
     setForecasts(getStorageItem('forecasts'));
     setShowSearch(false);
     if (!isNoAlert) {
