@@ -210,7 +210,7 @@ export const getForecastPage = function getForecastPage(city, forecasts, noOfPag
   for (let i = 1; i <= noOfPages; i += 1) {
     const paginatedForecasts = getPaginatedData(forecasts, i);
     // eslint-disable-next-line
-    const found = paginatedForecasts.find((forecast) => {
+    paginatedForecasts.find((forecast) => {
       const isMatch = forecast.location.name === city;
       if (isMatch) {
         isFound = i;
