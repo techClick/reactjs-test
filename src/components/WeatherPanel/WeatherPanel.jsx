@@ -133,7 +133,6 @@ class WeatherPanel extends React.Component {
       }
     }
 
-    console.log(loadingForecasts);
     return (
       <S.Container>
         { !loadingForecasts && selectedForecast
