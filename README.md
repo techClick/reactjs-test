@@ -6,7 +6,7 @@ The first thing that happens on the site is a prompt to access your location. Cl
 
 The next is the screen where the weather forecast for the 15 largest cities is listed in alphabetical order. This is the table that will be populated with the cities you search for.
 
-![image info](./src/assets/readme/Capture2.PNG)
+![image info](./src/assets/readme/Captures2.PNG)
 
 Clicking on an entry in the cities column seen above( like Beijing ), will bring you to the details page of the selected city's forecast seen below.
 
@@ -32,15 +32,11 @@ In the list of all Cities seen in image 2. The buttons below will add/remove Fav
 
 ![image info](./src/assets/readme/Capture5.PNG)
 
-The favourites section can be viewed by pressing this button below.
+The favourite forecasts appears above the all Cities table. Here you can also view the details of the city by clicking the city name. Clicking the star icons seen below will remove the particular favourite entry from the list.
 
-![image info](./src/assets/readme/Capture3.png)
+![image info](./src/assets/readme/Captures1.PNG)
 
-The favourite forecasts will then come up, seen below. Here you can also view the details of the city by clicking the city name. Clicking the star icons seen below will remove the particular favourite entry from the list. The all cities label seen below is also clickable and will take you to the 'All Cities' table.
-
-![image info](./src/assets/readme/Capture4.PNG)
-
-In the favourites section and the 'all cities' section, you can start a new search by clicking the 'Search new cities' link seen below.
+In the 'all cities' section, you can start a new search by clicking the 'Search new cities' link seen below.
 
 ![image info](./src/assets/readme/Capture9.PNG)
 
