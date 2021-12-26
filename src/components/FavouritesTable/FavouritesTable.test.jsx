@@ -13,27 +13,21 @@ describe('unit tests', () => {
         favourites={[]}
         setFavourites={() => {}}
         setSelectedForecast={() => {}}
-        setShowSearch={() => {}}
-        setLoadingForecasts={() => {}}
-        setForecasts={() => {}}
       />,
     );
   });
-  test('forecasts table renders', () => {
+  test('favourites table renders', () => {
     const { getAllByText } = render(
       <FavouritesTable
         favourites={[]}
         setFavourites={() => {}}
         setSelectedForecast={() => {}}
-        setShowSearch={() => {}}
-        setLoadingForecasts={() => {}}
-        setForecasts={() => {}}
       />,
     );
-    const citiesHeader = getAllByText(/cities/i)[0];
+    const citiesHeader = getAllByText(/city/i)[0];
     expect(citiesHeader).toBeInTheDocument();
   });
-  test('correct data is shown on forecasts table', () => {
+  test('correct data is shown on favourites table', () => {
     const favourites = [{
       location: { name: 'testc' },
       current:
@@ -48,9 +42,6 @@ describe('unit tests', () => {
         favourites={favourites}
         setFavourites={() => {}}
         setSelectedForecast={() => {}}
-        setShowSearch={() => {}}
-        setLoadingForecasts={() => {}}
-        setForecasts={() => {}}
       />,
     );
     const city = getByText(/\btestc\b/i);
@@ -64,15 +55,12 @@ describe('unit tests', () => {
         favourites={[]}
         setFavourites={() => {}}
         setSelectedForecast={() => {}}
-        setShowSearch={() => {}}
-        setLoadingForecasts={() => {}}
-        setForecasts={() => {}}
       />,
     );
     const paginator = queryByTestId('paginator');
     expect(paginator).toBeTruthy();
   });
-  test('forecasts table paginates correctly', () => {
+  test('favourites table paginates correctly', () => {
     const favourites = [];
     const { noOfForecastsPerPage } = global.config;
     for (let i = 0; i < (noOfForecastsPerPage * 2); i += 1) {
@@ -86,9 +74,6 @@ describe('unit tests', () => {
         favourites={favourites}
         setFavourites={() => {}}
         setSelectedForecast={() => {}}
-        setShowSearch={() => {}}
-        setLoadingForecasts={() => {}}
-        setForecasts={() => {}}
       />,
     );
     const firstFavouriteEntry = queryByTestId('favourite0');
