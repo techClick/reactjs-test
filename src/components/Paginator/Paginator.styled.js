@@ -7,7 +7,7 @@ export const Container = styled.div`
   float:right;
   position: absolute;
   left: 0;
-  bottom: 25px;
+  bottom: 30px;
   text-align: center;
   margin-top:20px;
 `;

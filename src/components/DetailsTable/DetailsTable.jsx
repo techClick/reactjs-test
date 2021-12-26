@@ -27,7 +27,7 @@ const DetailsTable = function DetailsTable({
   return (
     <WhiteCard
       width="70%"
-      height="440px"
+      height="400px"
       exitText="Back to forecasts"
       goBack={() => exitFromDetails()}
       favourites
