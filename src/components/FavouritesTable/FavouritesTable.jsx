@@ -13,9 +13,6 @@ const FavouriteTable = function FavouriteTable({
   favourites,
   setFavourites,
   setSelectedForecast,
-  setShowSearch,
-  setLoadingForecasts,
-  setForecasts,
 }) {
   const [thisPage, setThisPage] = useState(1);
   // Below variables are used to paginate favourites
@@ -52,12 +49,9 @@ const FavouriteTable = function FavouriteTable({
 
   return (
     <WhiteCard
-      width="70%"
-      height="440px"
-      goBack={() => setShowSearch(true)}
-      allCities
+      width="60%"
+      height="400px"
       tableDescription="FAVORITES"
-      favourites
     >
       <S.Table data-testid="favouritesTable">
         <thead>
@@ -99,8 +93,6 @@ const FavouriteTable = function FavouriteTable({
         noOfPages={noOfPages}
         thisPage={thisPage}
         setThisPage={setThisPage}
-        setLoadingForecasts={setLoadingForecasts}
-        setForecasts={setForecasts}
       />
     </WhiteCard>
   );

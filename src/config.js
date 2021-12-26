@@ -1,5 +1,5 @@
 module.exports = global.config;
 global.config = {
-  noOfForecastsPerPage: 7,
+  noOfForecastsPerPage: 6,
   maxNoOfPagesInPaginator: 2,
 };

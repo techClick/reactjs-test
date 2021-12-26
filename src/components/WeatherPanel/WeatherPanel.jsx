@@ -18,22 +18,16 @@ class WeatherPanel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      panelShown: 'all cities',
       loadingForecasts: !localStorage.getItem('usersLocation'),
       selectedForecast: null,
       isInitialLoad: false,
       favourites: getStorageItem('favourites'),
     };
-    this.setPanelShown = this.setPanelShown.bind(this);
     this.setFavourites = this.setFavourites.bind(this);
     this.setSelectedForecast = this.setSelectedForecast.bind(this);
     this.setLoadingForecasts = this.setLoadingForecasts.bind(this);
     this.showUsersCityDetails = this.showUsersCityDetails.bind(this);
     this.exitFromDetails = this.exitFromDetails.bind(this);
-  }
-
-  setPanelShown(panelShown) {
-    this.setState({ panelShown });
   }
 
   setFavourites(favourites) {
@@ -108,14 +102,12 @@ class WeatherPanel extends React.Component {
 
   render() {
     const {
-      panelShown,
       favourites,
       selectedForecast,
       loadingForecasts,
     } = this.state;
     const { forecasts, setForecasts, setShowSearch } = this.props;
     const {
-      setPanelShown,
       setFavourites,
       setLoadingForecasts,
       setSelectedForecast,
@@ -153,38 +145,25 @@ class WeatherPanel extends React.Component {
               </S.Loading>
             </WhiteCard>
           )}
-        { (!selectedForecast && !loadingForecasts && panelShown === 'all cities')
+        { (!selectedForecast && !loadingForecasts)
           && (
-            <>
-              <WhiteCard width="40%" panelLink="favourites" setPanelShown={setPanelShown}>
-                <S.Label>FAVOURITES</S.Label>
-              </WhiteCard>
-              <ForecastTable
-                forecasts={forecasts}
-                setForecasts={setForecasts}
-                setFavourites={setFavourites}
-                favourites={favourites}
-                setSelectedForecast={setSelectedForecast}
-                setShowSearch={setShowSearch}
-                setLoadingForecasts={setLoadingForecasts}
-              />
-            </>
+            <FavouritesTable
+              favourites={favourites}
+              setFavourites={setFavourites}
+              setSelectedForecast={setSelectedForecast}
+            />
           )}
-        { (!selectedForecast && !loadingForecasts && panelShown === 'favourites')
+        { (!selectedForecast && !loadingForecasts)
           && (
-            <>
-              <FavouritesTable
-                favourites={favourites}
-                setFavourites={setFavourites}
-                setSelectedForecast={setSelectedForecast}
-                setShowSearch={setShowSearch}
-                setLoadingForecasts={setLoadingForecasts}
-                setForecasts={setForecasts}
-              />
-              <WhiteCard width="40%" panelLink="all cities" setPanelShown={setPanelShown}>
-                <S.Label>ALL CITIES</S.Label>
-              </WhiteCard>
-            </>
+            <ForecastTable
+              forecasts={forecasts}
+              setForecasts={setForecasts}
+              setFavourites={setFavourites}
+              favourites={favourites}
+              setSelectedForecast={setSelectedForecast}
+              setShowSearch={setShowSearch}
+              setLoadingForecasts={setLoadingForecasts}
+            />
           )}
       </S.Container>
     );

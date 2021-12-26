@@ -11,8 +11,8 @@ export const Container = styled.div`
     (props.isPanelLink || props.isSearch) ? '15px' : '70px')};
   border-radius: 8px;
   margin: auto;
-  margin-top: ${(props) => (props.allCities ? '20px' : '0px')};
-  margin-bottom: ${(props) => (props.favourites ? '20px' : '0px')};
+  margin-top: ${(props) => (props.allCities ? '20px' : '40px')};
+  margin-bottom: ${(props) => (props.allCities ? '40px' : '0px')};
   width: ${(props) => props.width || ''};
   height: ${(props) => props.height || ''};
   text-align: center;

@@ -55,6 +55,7 @@ const ForecastTable = function ForecastTable({
   const [isFavourite, setIsFavourite] = useState([getIsFavouriteArray()]);
 
   function deleteEntry(index) {
+    setJustAddedCity(null);
     const selectedForecastIndex = getSelectedItemFromList(
       'index',
       paginatedForecasts[index].location.name,
@@ -103,6 +104,7 @@ const ForecastTable = function ForecastTable({
   }
 
   useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
     if (!localStorage.getItem('forecasts')) {
       // eslint-disable-next-line
       initializeStorage(forecasts, setForecasts, setLoadingForecasts);
@@ -130,8 +132,8 @@ const ForecastTable = function ForecastTable({
 
   return (
     <WhiteCard
-      width="70%"
-      height="440px"
+      width="75%"
+      height="400px"
       goBack={() => setShowSearch(true)}
       allCities
       tableDescription="ALL CITIES"
