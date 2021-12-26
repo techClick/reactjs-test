@@ -22,9 +22,7 @@ const Search = function Search({ setForecasts, setShowSearch }) {
   const onFail = function onFail() {
     setIsLoading(false);
     // eslint-disable-next-line no-alert
-    alert(`Error from weatherstack API.
-      \nNote: If the weatherstack API usages remaining is zero, it wont work.
-      \n\nAPI usages remaining = ${localStorage.getItem('API-usage')}`);
+    alert('Please check your connection');
   };
 
   const showSearchResults = function showSearchResults() {

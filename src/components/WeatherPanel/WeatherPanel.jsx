@@ -28,14 +28,22 @@ class WeatherPanel extends React.Component {
     this.setLoadingForecasts = this.setLoadingForecasts.bind(this);
     this.showUsersCityDetails = this.showUsersCityDetails.bind(this);
     this.exitFromDetails = this.exitFromDetails.bind(this);
+    this.onGetGeoLocationFail = this.onGetGeoLocationFail.bind(this);
   }
 
-  setFavourites(favourites) {
-    this.setState({ favourites });
+  onGetGeoLocationFail() {
+    const { setLoadingForecasts } = this;
+    setLoadingForecasts(false);
+    // eslint-disable-next-line no-alert
+    alert('Could not locate you. Please check your connection');
   }
 
   setSelectedForecast(selectedForecast) {
     this.setState({ selectedForecast });
+  }
+
+  setFavourites(favourites) {
+    this.setState({ favourites });
   }
 
   setLoadingForecasts(loadingForecasts) {
@@ -113,18 +121,18 @@ class WeatherPanel extends React.Component {
       setSelectedForecast,
       showUsersCityDetails,
       exitFromDetails,
+      onGetGeoLocationFail,
     } = this;
 
     if (!localStorage.getItem('usersLocation')) {
       localStorage.setItem('usersLocation', 'stored');
       // eslint-disable-next-line
       if (confirm('Allow this site access your current location?')) {
-        getGeoLocation(showUsersCityDetails);
+        getGeoLocation(showUsersCityDetails, onGetGeoLocationFail);
       } else {
         setLoadingForecasts(false);
       }
     }
-
     return (
       <S.Container>
         { !loadingForecasts && selectedForecast

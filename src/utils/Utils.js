@@ -170,7 +170,7 @@ export const getNewCityForecast = function getNewCityForecast(
     });
 };
 
-export const getGeoLocation = function getGeoLocation(stateFunction) {
+export const getGeoLocation = function getGeoLocation(stateFunction, onGetGeoLocationFail) {
   const apiKey = 'c1fd1ab3cb006384c8ba08b4672ef90c6a4024a7256d4d492bc4c431';
   const url = `https://api.ipdata.co?api-key=${apiKey}`;
   return fetch(url)
@@ -183,6 +183,7 @@ export const getGeoLocation = function getGeoLocation(stateFunction) {
       stateFunction(data.city);
     }).catch((e) => {
       console.log('ERROR', e);
+      onGetGeoLocationFail();
     });
 };
 
@@ -232,9 +233,10 @@ export const refreshAllForecasts = function refreshAllForecasts(
   setLoadingForecasts(true);
   const allForecasts = getStorageItem('allForecasts');
   let forecasts = getStorageItem('forecasts');
-  const onComplete = function onComplete() {
+  const onComplete = function onComplete(index) {
     const tempAllForecasts = getStorageItem('tempAllForecasts');
-    if (tempAllForecasts.length === allForecasts.length) {
+    if (index === allForecasts.length - 1
+      && tempAllForecasts.length === allForecasts.length) {
       // eslint-disable-next-line array-callback-return
       forecasts = tempAllForecasts.filter((allForecast) => (
         forecasts.find(
@@ -252,11 +254,15 @@ export const refreshAllForecasts = function refreshAllForecasts(
       setForecasts(forecasts);
       setFavourites(favourites);
       setLoadingForecasts(false);
+    } else if (index === allForecasts.length - 1) {
+      // eslint-disable-next-line no-alert
+      alert('Could not refresh stored forecasts. Please check your connection');
+      setLoadingForecasts(false);
     }
   };
   // eslint-disable-next-line array-callback-return
-  allForecasts.map((forecast) => {
-    getNewCityForecast(forecast.location.name, onComplete, onComplete, true);
+  allForecasts.map((forecast, i) => {
+    getNewCityForecast(forecast.location.name, () => onComplete(i), () => onComplete(i), true);
   });
 };
 
