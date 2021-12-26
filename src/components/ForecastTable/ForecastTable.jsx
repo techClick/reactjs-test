@@ -158,13 +158,15 @@ const ForecastTable = function ForecastTable({
               </S.TD>
               <S.TD removeAt1 extraPadding>
                 <S.Image src={forecast.current.weather_icons[0]} />
-                {forecast.current.temperature}
-                &deg;C
-                {'.  '}
-                <small>
-                  {forecast.current.weather_descriptions[0].toString()
-                    .replace(/\s/g, '-').split(',').join('')}
-                </small>
+                <S.Forecast>
+                  {forecast.current.temperature}
+                  &deg;C
+                  {'.  '}
+                  <small>
+                    {forecast.current.weather_descriptions[0].toString()
+                      .replace(/\s/g, '-').split(',').join('')}
+                  </small>
+                </S.Forecast>
                 <S.FavouritesIcon
                   src={isFavourite[i] ? starOn : starOff}
                   onClick={() => addFavourite(i)}

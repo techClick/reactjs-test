@@ -43,12 +43,12 @@ export const TD = styled.td`
   color: #525252;
   border-left: .75px solid #c9c9c9;
   padding: 13px 10px 13px ${(props) => (props.extraPadding ? '43px' : '10px')};  
+  font-size:13.5px;
+  position:relative;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; 
   max-width: 5px;
-  font-size:13.5px;
-  position:relative;
   &:hover {
     text-overflow: clip;
     white-space: normal;
@@ -59,6 +59,22 @@ export const TD = styled.td`
   }
   @media(max-width:275px){
     display: ${(props) => (props.removeAt1 ? 'none' : '')};
+  }
+`;
+
+export const Forecast = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; 
+  max-width: 500px;
+  @media(max-width:600px){
+    max-width: 70px;
+  }
+  @media(max-width:450px){
+    max-width: 30px;
+  }
+  @media(max-width:340px){
+    display: none;
   }
 `;
 

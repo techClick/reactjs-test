@@ -73,14 +73,16 @@ const FavouriteTable = function FavouriteTable({
               </S.TD>
               <S.TD removeAt1 extraPadding>
                 <S.Image src={favourite.current.weather_icons[0]} />
-                {favourite.current.temperature}
-                &deg;C
-                {'.  '}
-                <small>
-                  {favourite.current.weather_descriptions[0].toString()
-                    .replace(/\s/g, '-').split(',').join('')}
-                </small>
-                <S.FavouritesIcon
+                <S.Forecast>
+                  {favourite.current.temperature}
+                  &deg;C
+                  {'.  '}
+                  <small>
+                    {favourite.current.weather_descriptions[0].toString()
+                      .replace(/\s/g, '-').split(',').join('')}
+                  </small>
+                </S.Forecast>
+                <S.DeleteIcon
                   src={starOn}
                   onClick={() => removeFavourite(i)}
                 />
