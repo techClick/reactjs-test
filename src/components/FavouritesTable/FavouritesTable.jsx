@@ -50,7 +50,6 @@ const FavouriteTable = function FavouriteTable({
   return (
     <WhiteCard
       width="60%"
-      height="400px"
       tableDescription="FAVORITES"
     >
       <S.Table data-testid="favouritesTable">

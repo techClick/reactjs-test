@@ -31,10 +31,15 @@ const WhiteCard = function WhiteCard({
       isSearch={isSearch}
       onClick={() => showThisPanel()}
     >
-      <S.TableDescription>
-        {tableDescription}
-      </S.TableDescription>
-      <S.Line />
+      {(tableDescription || exitText)
+        && (
+          <>
+            <S.TableDescription>
+              {tableDescription}
+            </S.TableDescription>
+            <S.Line />
+          </>
+        )}
       {goBack
         && (
           <S.GoBack onClick={() => goBack()} data-testid="goBack">
