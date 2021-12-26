@@ -107,7 +107,7 @@ const ForecastTable = function ForecastTable({
     window.scrollTo(0, document.body.scrollHeight);
     if (!localStorage.getItem('forecasts')) {
       // eslint-disable-next-line
-      initializeStorage(forecasts, setForecasts, setLoadingForecasts);
+      initializeStorage(forecasts, setForecasts, setFavourites, setLoadingForecasts);
     }
   }, []);
 
@@ -181,6 +181,7 @@ const ForecastTable = function ForecastTable({
         setThisPage={setThisPage}
         setLoadingForecasts={setLoadingForecasts}
         setForecasts={setForecasts}
+        setFavourites={setFavourites}
       />
     </WhiteCard>
   );

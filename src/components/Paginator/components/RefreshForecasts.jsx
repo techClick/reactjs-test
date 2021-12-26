@@ -1,17 +1,18 @@
 import React from 'react';
 import * as S from './RefreshForecasts.styled';
 import refreshIcon from '../../../assets/refresh.png';
-import { loadAllForecasts } from '../../../utils/Utils';
+import { refreshAllForecasts } from '../../../utils/Utils';
 
 const RefreshForecasts = function RefreshForecasts({
   setLoadingForecasts,
   setForecasts,
+  setFavourites,
 }) {
   return (
     <S.Container>
       <S.Image
         src={refreshIcon}
-        onClick={() => loadAllForecasts(setForecasts, setLoadingForecasts)}
+        onClick={() => refreshAllForecasts(setForecasts, setLoadingForecasts, setFavourites)}
       />
     </S.Container>
   );

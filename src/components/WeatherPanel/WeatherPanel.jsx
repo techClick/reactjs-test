@@ -46,9 +46,9 @@ class WeatherPanel extends React.Component {
     const { isInitialLoad, selectedForecast } = this.state;
     if (isInitialLoad) {
       const { forecasts, setForecasts } = this.props;
-      const { setLoadingForecasts } = this;
+      const { setLoadingForecasts, setFavourites } = this;
       this.setState({ isInitialLoad: false });
-      initializeStorage(forecasts, setForecasts, setLoadingForecasts);
+      initializeStorage(forecasts, setForecasts, setFavourites, setLoadingForecasts);
     }
     localStorage.setItem('justAddedCity-noBlink', selectedForecast.location.name);
     const { setSelectedForecast } = this;
@@ -134,7 +134,7 @@ class WeatherPanel extends React.Component {
               exitFromDetails={exitFromDetails}
             />
           )}
-        { !selectedForecast && loadingForecasts
+        { loadingForecasts
           && (
             <WhiteCard width="50%" isSearch>
               <S.Loading>
@@ -147,23 +147,22 @@ class WeatherPanel extends React.Component {
           )}
         { (!selectedForecast && !loadingForecasts)
           && (
-            <FavouritesTable
-              favourites={favourites}
-              setFavourites={setFavourites}
-              setSelectedForecast={setSelectedForecast}
-            />
-          )}
-        { (!selectedForecast && !loadingForecasts)
-          && (
-            <ForecastTable
-              forecasts={forecasts}
-              setForecasts={setForecasts}
-              setFavourites={setFavourites}
-              favourites={favourites}
-              setSelectedForecast={setSelectedForecast}
-              setShowSearch={setShowSearch}
-              setLoadingForecasts={setLoadingForecasts}
-            />
+            <>
+              <FavouritesTable
+                favourites={favourites}
+                setFavourites={setFavourites}
+                setSelectedForecast={setSelectedForecast}
+              />
+              <ForecastTable
+                forecasts={forecasts}
+                setForecasts={setForecasts}
+                setFavourites={setFavourites}
+                favourites={favourites}
+                setSelectedForecast={setSelectedForecast}
+                setShowSearch={setShowSearch}
+                setLoadingForecasts={setLoadingForecasts}
+              />
+            </>
           )}
       </S.Container>
     );

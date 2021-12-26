@@ -224,7 +224,11 @@ export const getForecastPage = function getForecastPage(city, forecasts, noOfPag
   return isFound;
 };
 
-export const loadAllForecasts = function loadAllForecasts(setForecasts, setLoadingForecasts) {
+export const refreshAllForecasts = function refreshAllForecasts(
+  setForecasts,
+  setLoadingForecasts,
+  setFavourites,
+) {
   setLoadingForecasts(true);
   const allForecasts = getStorageItem('allForecasts');
   let forecasts = getStorageItem('forecasts');
@@ -236,10 +240,17 @@ export const loadAllForecasts = function loadAllForecasts(setForecasts, setLoadi
         forecasts.find(
           (forecast) => forecast.location.name === allForecast.location.name,
         )));
+      let favourites = getStorageItem('favourites');
+      favourites = forecasts.filter((forecast) => (
+        favourites.find(
+          (favourite) => favourite.location.name === forecast.location.name,
+        )));
       localStorage.setItem('allForecasts', JSON.stringify(tempAllForecasts));
       localStorage.setItem('forecasts', JSON.stringify(forecasts));
+      localStorage.setItem('favourites', JSON.stringify(favourites));
       localStorage.removeItem('tempAllForecasts');
       setForecasts(forecasts);
+      setFavourites(favourites);
       setLoadingForecasts(false);
     }
   };
@@ -252,11 +263,12 @@ export const loadAllForecasts = function loadAllForecasts(setForecasts, setLoadi
 export const initializeStorage = function initializeStorage(
   forecasts,
   setForecasts,
+  setFavourites,
   setLoadingForecasts,
 ) {
   localStorage.setItem('forecasts', JSON.stringify(forecasts));
   localStorage.setItem('allForecasts', JSON.stringify(forecasts));
   localStorage.setItem('favourites', '[]');
   localStorage.setItem('API-usage', '250000');
-  loadAllForecasts(setForecasts, setLoadingForecasts);
+  refreshAllForecasts(setForecasts, setLoadingForecasts, setFavourites);
 };

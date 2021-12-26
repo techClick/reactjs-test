@@ -11,6 +11,7 @@ const Paginator = function Paginator({
   setThisPage,
   setLoadingForecasts,
   setForecasts,
+  setFavourites,
 }) {
   const [startIndex, setStartIndex] = useState(0);
 
@@ -24,6 +25,7 @@ const Paginator = function Paginator({
           && (
             <RefreshForecasts
               setForecasts={setForecasts}
+              setFavourites={setFavourites}
               setLoadingForecasts={setLoadingForecasts}
             />
           )}
