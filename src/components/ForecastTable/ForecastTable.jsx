@@ -33,6 +33,7 @@ const ForecastTable = function ForecastTable({
     }
     setThisPageMain(page);
   }
+
   // Below variables are used to paginate forecasts
   const paginatedForecasts = getPaginatedData(forecasts, thisPage);
   const totalForecasts = forecasts.length;
@@ -128,9 +129,9 @@ const ForecastTable = function ForecastTable({
         setThisPage(pageOfCity);
         setAdjustPaginatorPages(true);
         if (localStorage.getItem('justAddedCity')) setJustAddedCity(justAddedCityInStorage);
-        localStorage.removeItem('justAddedCity');
-        localStorage.removeItem('justAddedCity-noBlink');
       }
+      localStorage.removeItem('justAddedCity');
+      localStorage.removeItem('justAddedCity-noBlink');
     }
   }, [forecasts]);
 
