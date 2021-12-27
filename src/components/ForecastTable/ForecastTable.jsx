@@ -124,11 +124,13 @@ const ForecastTable = function ForecastTable({
       || localStorage.getItem('justAddedCity-noBlink');
     if (justAddedCityInStorage) {
       const pageOfCity = getForecastPage(justAddedCityInStorage, forecasts, noOfPages);
-      setThisPage(pageOfCity);
-      setAdjustPaginatorPages(true);
-      if (localStorage.getItem('justAddedCity')) setJustAddedCity(justAddedCityInStorage);
-      localStorage.removeItem('justAddedCity');
-      localStorage.removeItem('justAddedCity-noBlink');
+      if (pageOfCity) {
+        setThisPage(pageOfCity);
+        setAdjustPaginatorPages(true);
+        if (localStorage.getItem('justAddedCity')) setJustAddedCity(justAddedCityInStorage);
+        localStorage.removeItem('justAddedCity');
+        localStorage.removeItem('justAddedCity-noBlink');
+      }
     }
   }, [forecasts]);
 
