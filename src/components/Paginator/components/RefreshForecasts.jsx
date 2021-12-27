@@ -12,6 +12,7 @@ const RefreshForecasts = function RefreshForecasts({
     <S.Container>
       <S.Image
         src={refreshIcon}
+        data-testid="refreshButton"
         onClick={() => refreshAllForecasts(setForecasts, setLoadingForecasts, setFavourites)}
       />
     </S.Container>

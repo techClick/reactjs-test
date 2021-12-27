@@ -14,4 +14,14 @@ describe('unit tests', () => {
       />,
     );
   });
+  test('refreshButton renders', () => {
+    const { queryByTestId } = render(
+      <RefreshForecasts
+        setForecasts={() => {}}
+        setLoadingForecasts={() => {}}
+      />,
+    );
+    const firstPage = queryByTestId('refreshButton');
+    expect(firstPage).toBeTruthy();
+  });
 });
