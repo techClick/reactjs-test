@@ -32,7 +32,7 @@ describe('unit tests', () => {
         setLoadingForecasts={() => {}}
       />,
     );
-    const citiesHeader = getAllByText(/cities/i)[0];
+    const citiesHeader = getAllByText(/all cities/i)[0];
     expect(citiesHeader).toBeInTheDocument();
   });
   test('correct data is shown on forecasts table', () => {

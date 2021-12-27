@@ -24,7 +24,7 @@ describe('unit tests', () => {
         setSelectedForecast={() => {}}
       />,
     );
-    const citiesHeader = getAllByText(/city/i)[0];
+    const citiesHeader = getAllByText(/favorites/i)[0];
     expect(citiesHeader).toBeInTheDocument();
   });
   test('correct data is shown on favourites table', () => {

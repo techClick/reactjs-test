@@ -11,8 +11,7 @@ describe('unit tests', () => {
     render(<App />);
   });
   test('internet works', async () => {
-    const searchText = 'john';
-    const url = `https://api.github.com/search/users?q=${searchText} in:login`;
+    const url = 'https://api.github.com/search/users?q=john in:login';
     const sortedResult = await fetch(url).then((res) => res.json())
       .then((data) => {
         if (!data || !data.items) return [];

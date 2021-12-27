@@ -16,7 +16,7 @@ describe('unit tests', () => {
       />,
     );
   });
-  test('Forecast table renders', () => {
+  test('child component( forecast table ) renders', () => {
     const { getAllByText } = render(
       <WeatherPanel
         forecasts={[]}
@@ -24,10 +24,10 @@ describe('unit tests', () => {
         setShowSearch={() => {}}
       />,
     );
-    const citiesHeader = getAllByText(/cities/i)[0];
+    const citiesHeader = getAllByText(/all cities/i)[0];
     expect(citiesHeader).toBeInTheDocument();
   });
-  test('favourites table renders', () => {
+  test('child component( favourites table ) renders', () => {
     const { getAllByText } = render(
       <WeatherPanel
         forecasts={[]}
@@ -35,7 +35,7 @@ describe('unit tests', () => {
         setShowSearch={() => {}}
       />,
     );
-    const citiesHeader = getAllByText(/city/i)[0];
+    const citiesHeader = getAllByText(/favorites/i)[0];
     expect(citiesHeader).toBeInTheDocument();
   });
 });
