@@ -43,8 +43,8 @@ export const Page = styled.div`
   &:hover{
     cursor: ${(props) => (props.disabled ? '' : 'pointer')};
     background-color: ${(props) => {
-    const isDisabled = props.disabled ? '' : '#d1d1d1';
-    return props.onThisPage ? '#99ffcf' : isDisabled;
+    const normalColor = props.disabled ? '' : '#d1d1d1';
+    return props.onThisPage ? '#99ffcf' : normalColor;
   }}
   }
   @media(max-width:250px){

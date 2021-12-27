@@ -24,6 +24,7 @@ const ForecastTable = function ForecastTable({
   setShowSearch,
   setLoadingForecasts,
 }) {
+  const [adjustPaginatorPages, setAdjustPaginatorPages] = useState(false);
   const [thisPage, setThisPageMain] = useState(1);
   const [justAddedCity, setJustAddedCity] = useState(null);
   function setThisPage(page) {
@@ -124,6 +125,7 @@ const ForecastTable = function ForecastTable({
     if (justAddedCityInStorage) {
       const pageOfCity = getForecastPage(justAddedCityInStorage, forecasts, noOfPages);
       setThisPage(pageOfCity);
+      setAdjustPaginatorPages(true);
       if (localStorage.getItem('justAddedCity')) setJustAddedCity(justAddedCityInStorage);
       localStorage.removeItem('justAddedCity');
       localStorage.removeItem('justAddedCity-noBlink');
@@ -184,6 +186,8 @@ const ForecastTable = function ForecastTable({
         setLoadingForecasts={setLoadingForecasts}
         setForecasts={setForecasts}
         setFavourites={setFavourites}
+        adjustPaginatorPages={adjustPaginatorPages}
+        setAdjustPaginatorPages={setAdjustPaginatorPages}
       />
     </WhiteCard>
   );

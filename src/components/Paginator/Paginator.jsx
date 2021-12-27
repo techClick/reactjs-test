@@ -12,6 +12,8 @@ const Paginator = function Paginator({
   setLoadingForecasts,
   setForecasts,
   setFavourites,
+  adjustPaginatorPages,
+  setAdjustPaginatorPages,
 }) {
   const [startIndex, setStartIndex] = useState(0);
 
@@ -19,7 +21,11 @@ const Paginator = function Paginator({
   const pagesToShow = getPagesToShow(startIndex, noOfPages, setStartIndex);
 
   useEffect(() => {
-    // console.log(startIndex, thisPage);
+    if (adjustPaginatorPages) {
+      const thisIndex = thisPage - global.config.maxNoOfPagesInPaginator;
+      setStartIndex(thisIndex < 0 ? 0 : thisIndex);
+      setAdjustPaginatorPages(false);
+    }
   }, [thisPage]);
 
   return (
