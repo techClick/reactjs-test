@@ -35,7 +35,7 @@ describe('unit tests', () => {
         setShowSearch={() => {}}
       />,
     );
-    const citiesHeader = getAllByText(/favorites/i)[0];
-    expect(citiesHeader).toBeInTheDocument();
+    const favoritesHeader = getAllByText(/favorites/i)[0];
+    expect(favoritesHeader).toBeInTheDocument();
   });
 });
