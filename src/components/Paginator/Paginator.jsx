@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import * as S from './Paginator.styled';
 import { getPagesToShow } from '../../utils/Utils';
 import leftArrow from '../../assets/arrowleft.png';
@@ -17,6 +17,10 @@ const Paginator = function Paginator({
 
   // Variable below is the object of pages that are seen e.g 1,2 or 2,3
   const pagesToShow = getPagesToShow(startIndex, noOfPages, setStartIndex);
+
+  useEffect(() => {
+    // console.log(startIndex, thisPage);
+  }, [thisPage]);
 
   return (
     <S.Container data-testid="paginator">

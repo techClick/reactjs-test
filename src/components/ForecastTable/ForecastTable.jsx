@@ -128,7 +128,7 @@ const ForecastTable = function ForecastTable({
       localStorage.removeItem('justAddedCity');
       localStorage.removeItem('justAddedCity-noBlink');
     }
-  });
+  }, [forecasts]);
 
   return (
     <WhiteCard
