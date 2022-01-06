@@ -235,7 +235,6 @@ export const refreshAllForecasts = function refreshAllForecasts(
   let forecasts = getStorageItem('forecasts');
   const onComplete = function onComplete() {
     const tempAllForecasts = getStorageItem('tempAllForecasts');
-    console.log(tempAllForecasts.length, allForecasts.length, tempAllForecasts, allForecasts);
     if (tempAllForecasts.length === allForecasts.length) {
       // eslint-disable-next-line array-callback-return
       forecasts = tempAllForecasts.filter((allForecast) => (
