@@ -233,7 +233,7 @@ export const refreshAllForecasts = function refreshAllForecasts(
   setLoadingForecasts(true);
   const allForecasts = getStorageItem('allForecasts');
   let forecasts = getStorageItem('forecasts');
-  const onComplete = function onComplete() {
+  const onComplete = function onComplete(index) {
     const tempAllForecasts = getStorageItem('tempAllForecasts');
     if (tempAllForecasts.length === allForecasts.length) {
       // eslint-disable-next-line array-callback-return
@@ -253,12 +253,16 @@ export const refreshAllForecasts = function refreshAllForecasts(
       setForecasts(forecasts);
       setFavourites(favourites);
       setLoadingForecasts(false);
+    } else if (index === allForecasts.length - 1) {
+      setTimeout(() => {
+        setLoadingForecasts(false);
+      }, 1300);
     }
   };
   localStorage.removeItem('tempAllForecasts');
   // eslint-disable-next-line array-callback-return
-  allForecasts.map((forecast) => {
-    getNewCityForecast(forecast.location.name, () => onComplete(), () => onComplete(), true);
+  allForecasts.map((forecast, i) => {
+    getNewCityForecast(forecast.location.name, () => onComplete(i), () => onComplete(i), true);
   });
 };
 
