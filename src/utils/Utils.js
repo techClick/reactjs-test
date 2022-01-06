@@ -233,10 +233,10 @@ export const refreshAllForecasts = function refreshAllForecasts(
   setLoadingForecasts(true);
   const allForecasts = getStorageItem('allForecasts');
   let forecasts = getStorageItem('forecasts');
-  const onComplete = function onComplete(index) {
+  const onComplete = function onComplete() {
     const tempAllForecasts = getStorageItem('tempAllForecasts');
-    if (index === allForecasts.length - 1
-      && tempAllForecasts.length === allForecasts.length) {
+    console.log(tempAllForecasts.length, allForecasts.length, tempAllForecasts, allForecasts);
+    if (tempAllForecasts.length === allForecasts.length) {
       // eslint-disable-next-line array-callback-return
       forecasts = tempAllForecasts.filter((allForecast) => (
         forecasts.find(
@@ -254,15 +254,12 @@ export const refreshAllForecasts = function refreshAllForecasts(
       setForecasts(forecasts);
       setFavourites(favourites);
       setLoadingForecasts(false);
-    } else if (index === allForecasts.length - 1) {
-      // eslint-disable-next-line no-alert
-      alert('Could not refresh stored forecasts. Please check your connection');
-      setLoadingForecasts(false);
     }
   };
+  localStorage.removeItem('tempAllForecasts');
   // eslint-disable-next-line array-callback-return
-  allForecasts.map((forecast, i) => {
-    getNewCityForecast(forecast.location.name, () => onComplete(i), () => onComplete(i), true);
+  allForecasts.map((forecast) => {
+    getNewCityForecast(forecast.location.name, () => onComplete(), () => onComplete(), true);
   });
 };
 
