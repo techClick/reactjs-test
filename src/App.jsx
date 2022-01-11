@@ -10,6 +10,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     // localStorage.clear();
+    localStorage.removeItem('usersLocation');
     this.state = {
       forecasts: localStorage.getItem('forecasts')
         ? getStorageItem('forecasts') : sortAlphabetically(initialForecast),
