@@ -1,6 +1,6 @@
 # Instrictions
 
-The first thing that happens on the site is a prompt to access your location. Click 'yes' to view the weather details of your city. Otherwise, click 'cancel' to continue. This prompt comes up only once no matter your choice. 
+The first thing that happens on the site is a prompt to access your location. Click 'yes' to view the weather details of your city. Otherwise, click 'cancel' to continue. This prompt comes up every time you load the application. 
 
 ![image info](./src/assets/readme/Capture1.png)
 
