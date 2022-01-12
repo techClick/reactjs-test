@@ -53,9 +53,18 @@ export const sortAlphabetically = function sortAlphabetically(forecast) {
 };
 
 export const getStorageItem = function getStorageItem(type) {
+  function onlyUnique(array) {
+    const array2 = [];
+    for (let i = 0; i < array.length; i += 1) {
+      if (!array2.find((item) => item.location.name === array[i].location.name)) {
+        array2.push(array[i]);
+      }
+    }
+    return array2;
+  }
   const savedData = localStorage.getItem(type);
   if (savedData) {
-    return JSON.parse(savedData);
+    return onlyUnique(JSON.parse(savedData));
   }
   return [];
 };
