@@ -64,6 +64,9 @@ export const getStorageItem = function getStorageItem(type) {
   }
   const savedData = localStorage.getItem(type);
   if (savedData) {
+    if (type === 'notes') {
+      return JSON.parse(savedData);
+    }
     return onlyUnique(JSON.parse(savedData));
   }
   return [];
