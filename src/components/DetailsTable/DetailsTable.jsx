@@ -4,7 +4,7 @@ import * as S from '../ForecastTable/ForecastTable.styled';
 import * as S2 from './DetailsTable.styled';
 import { getPaginatedData } from '../../utils/Utils';
 import Paginator from '../Paginator/Paginator';
-import Notes from './components/Notes';
+import Notes from './Notes/Notes';
 
 const DetailsTable = function DetailsTable({
   selectedForecast,

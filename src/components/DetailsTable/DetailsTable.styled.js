@@ -17,9 +17,11 @@ export const Table = styled.table`
     border-top: 0;
   }
   @media(max-width: 370px) {
+    margin-top:279px;
     width: 79%;
   }
   @media(max-width: 200px) {
+    margin-top:279px;
     right: 12px;
   }
 `;

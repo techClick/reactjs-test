@@ -9,7 +9,7 @@ export const Container = styled.div`
   height: 360px;
   overflow: auto;
   @media(max-width: 370px) {
-    display: none;
+    width: 100%;
   }
 `;
 

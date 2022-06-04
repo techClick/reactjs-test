@@ -3,7 +3,7 @@ import * as S from './Paginator.styled';
 import { getPagesToShow } from '../../utils/Utils';
 import leftArrow from '../../assets/arrowleft.png';
 import rightArrow from '../../assets/arrowright.png';
-import RefreshForecasts from './components/RefreshForecasts';
+import RefreshForecasts from './RefreshForecasts/RefreshForecasts';
 
 const Paginator = function Paginator({
   noOfPages,
